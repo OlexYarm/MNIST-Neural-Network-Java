@@ -10,12 +10,14 @@ import java.io.ObjectOutputStream;
 import neural_network.service.NeuralNetwork;
 
 public class SavedNetworkIO {
+
+    private final static String SAVE_DIRECTORY_NAME = "saved_neuron_values";
+
     public static void createNeuralNetworkSaves(NeuralNetwork neuralNetwork, String neuralNetworkName)
             throws IOException {
-        String directoryName = "../saved_neuron_values";
-        String filePath = directoryName + "/" + neuralNetworkName + ".dat";
+        String filePath = SAVE_DIRECTORY_NAME + "/" + neuralNetworkName + ".dat";
 
-        File logDirectory = new File(directoryName);
+        File logDirectory = new File(SAVE_DIRECTORY_NAME);
         if (!logDirectory.exists()) {
             logDirectory.mkdirs();
         }
@@ -31,8 +33,7 @@ public class SavedNetworkIO {
             String neuralNetworkName)
             throws IOException, ClassNotFoundException {
 
-        String directoryName = "../saved_neuron_values";
-        String filePath = directoryName + "/" + neuralNetworkName + ".dat";
+        String filePath = SAVE_DIRECTORY_NAME + "/" + neuralNetworkName + ".dat";
 
         try (ObjectInputStream neuralNetworkInputStream = new ObjectInputStream(new FileInputStream(filePath))) {
             neuralNetwork = (NeuralNetwork) neuralNetworkInputStream.readObject();
